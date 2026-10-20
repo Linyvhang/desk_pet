@@ -19,6 +19,7 @@ Describe '技术方案约束' {
         $document | Should Match '本地配置'
         $document | Should Match '系统托盘'
         $document | Should Match 'PyInstaller'
+        $document | Should Match 'Ctrl\+左键'
     }
 
     It '没有把已删除的害怕动作重新加入状态列表' {

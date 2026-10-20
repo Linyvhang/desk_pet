@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "yueya-snow-bear"
+version = "0.1.0"
+description = "月牙雪熊 Windows 桌宠 MVP"
+requires-python = ">=3.12"
+dependencies = ["PySide6>=6.8,<7"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]
+addopts = "-ra"
