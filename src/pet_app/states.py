@@ -8,6 +8,7 @@ class PetState(str, Enum):
     WALKING = "walking"
     RELAXED = "relaxed"
     ALERT = "alert"
+    FEARFUL = "fearful"
     HIT = "hit"
     SLEEPING = "sleeping"
     ANGRY = "angry"
@@ -17,6 +18,7 @@ TEMPORARY_STATES = frozenset(
     {
         PetState.RELAXED,
         PetState.ALERT,
+        PetState.FEARFUL,
         PetState.HIT,
         PetState.ANGRY,
     }
@@ -28,6 +30,7 @@ STATE_ASSETS: dict[PetState, str] = {
     PetState.WALKING: "行走.gif",
     PetState.RELAXED: "放松.gif",
     PetState.ALERT: "警觉.gif",
+    PetState.FEARFUL: "害怕.gif",
     PetState.HIT: "受击.gif",
     PetState.SLEEPING: "睡觉.gif",
     PetState.ANGRY: "生气.gif",
@@ -45,7 +48,5 @@ def parse_state(value: str | PetState | None) -> PetState:
 
 
 def fallback_state(auto_behavior_paused: bool, was_walking: bool = False) -> PetState:
-    """Return the state to use after a temporary action finishes."""
-    if auto_behavior_paused:
-        return PetState.IDLE
-    return PetState.WALKING if was_walking else PetState.IDLE
+    """Return the idle state after any temporary action finishes."""
+    return PetState.IDLE

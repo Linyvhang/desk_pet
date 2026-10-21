@@ -7,7 +7,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parents[1] / "src"))
 
 from pet_app.behavior import WalkBounds, automatic_state, next_x
-from pet_app.config import PetSettings, SettingsStore
+from pet_app.config import MIN_OPACITY, MIN_PET_SIZE, PetSettings, SettingsStore
 from pet_app.states import PetState, parse_state
 
 
@@ -38,6 +38,13 @@ class SettingsTests(unittest.TestCase):
 
     def test_unknown_state_falls_back_to_idle(self):
         self.assertEqual(parse_state("removed-state"), PetState.IDLE)
+
+    def test_fearful_state_and_settings_limits(self):
+        self.assertEqual(parse_state("fearful"), PetState.FEARFUL)
+        settings = PetSettings.from_dict({"size": {"width": 1, "height": 2}, "opacity": 0})
+        self.assertEqual(settings.width, MIN_PET_SIZE)
+        self.assertEqual(settings.height, MIN_PET_SIZE)
+        self.assertEqual(settings.opacity, MIN_OPACITY)
 
 
 class BehaviorTests(unittest.TestCase):

@@ -22,7 +22,14 @@ Describe '技术方案约束' {
         $document | Should Match 'Ctrl\+左键'
     }
 
-    It '没有把已删除的害怕动作重新加入状态列表' {
-        $document | Should Not Match '包含：.*害怕'
+    It '包含害怕状态和拖动交互' {
+        $document | Should Match '包含：.*害怕'
+        $document | Should Match '移动超过拖动阈值.*害怕'
+    }
+
+    It '规定滑块边界和动作回退' {
+        $document | Should Match '0\.2～1\.0'
+        $document | Should Match '64×64'
+        $document | Should Match '每次动作播放完成后统一回到待机状态'
     }
 }

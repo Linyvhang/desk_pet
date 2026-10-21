@@ -12,6 +12,9 @@ from .states import PetState, parse_state
 
 LOGGER = logging.getLogger(__name__)
 
+MIN_PET_SIZE = 64
+MIN_OPACITY = 0.2
+
 
 @dataclass
 class PetSettings:
@@ -31,9 +34,9 @@ class PetSettings:
         return cls(
             x=_as_int(position.get("x"), cls.x),
             y=_as_int(position.get("y"), cls.y),
-            width=max(32, _as_int(size.get("width"), cls.width)),
-            height=max(32, _as_int(size.get("height"), cls.height)),
-            opacity=min(1.0, max(0.1, _as_float(data.get("opacity"), cls.opacity))),
+            width=max(MIN_PET_SIZE, _as_int(size.get("width"), cls.width)),
+            height=max(MIN_PET_SIZE, _as_int(size.get("height"), cls.height)),
+            opacity=min(1.0, max(MIN_OPACITY, _as_float(data.get("opacity"), cls.opacity))),
             topmost=_as_bool(data.get("topmost"), cls.topmost),
             auto_behavior_paused=_as_bool(
                 data.get("auto_behavior_paused"), cls.auto_behavior_paused
